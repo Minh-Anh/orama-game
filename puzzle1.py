@@ -1,6 +1,8 @@
 import time, sys, timeit
 from utils import delay_print
-
+from playsound import playsound
+a = 3
+b = 5
 arr1 = [0] * 1000
 arr2 = [0] * 1000
 arr1[0] = 1
@@ -9,6 +11,10 @@ arr2[1] = 2
 arr2[2] = 10
 d1 = {'a': 1, 'b':3}
 d2 = {'b':2, 'c':10}
+addFunc = """
+def add(a, b):
+    return
+"""
 
 denseVectorDotProductExpanded = """
 def dotProduct(arr1, arr2):
@@ -27,6 +33,16 @@ def dotProduct(d1, d2):
     return
 """
 
+def addEval():
+    result = 0
+    while result != 8:
+        line = input("> ")
+        try:
+            result = eval(line)
+        except:
+            print(sys.exc_info())
+    return
+
 def evaluate():
     result = 0
     while result != 6:
@@ -43,8 +59,13 @@ def evaluate():
     return timeDense//timeSparse
 
 
-def puzzle1(cash):
+def puzzle1(path):
     delay_print("Let's get to work, then. We're revamping some of our internal tooling right now.")
+    delay_print("First of all, let me show you our interpreter. Let's say I give you a function definition, like this:")
+    delay_print(addFunc)
+    delay_print("Fill in the return statement.")
+    input("> ")
+    delay_print("Pretty straightforward, right? Now let's get to the real work.")
     delay_print("In order to perform linear regression efficiently, we need to be able to take dot products of sparse vectors quickly.")
     delay_print("Right now, our vectors are defined as arrays, and we iterate through each term to multiply them and add to get the dot product:")
     delay_print(denseVectorDotProductExpanded)
@@ -60,7 +81,7 @@ def puzzle1(cash):
     result = evaluate()
     delay_print("Here at Orama, we give out bonuses to our top performers.")
     delay_print("Since you did so well with that, here's a little something from us.")
-    cash += result
-    print()
+    cash = result
     print(f"You got ${result}0! You now have ${cash}0.")
+    playsound(path +'/sounds/cash.mp3')
     return cash
